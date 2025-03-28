@@ -1,0 +1,27 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_eip.windows_eip" [label="aws_eip.windows_eip"];
+  "aws_eip_association.windows_eip_assoc" [label="aws_eip_association.windows_eip_assoc"];
+  "aws_instance.My_Windows_server" [label="aws_instance.My_Windows_server"];
+  "aws_internet_gateway.IGW" [label="aws_internet_gateway.IGW"];
+  "aws_route_table.Public_rt" [label="aws_route_table.Public_rt"];
+  "aws_route_table_association.public_rta" [label="aws_route_table_association.public_rta"];
+  "aws_security_group.Linux_SG" [label="aws_security_group.Linux_SG"];
+  "aws_security_group.Windows_SG" [label="aws_security_group.Windows_SG"];
+  "aws_subnet.private_subnet" [label="aws_subnet.private_subnet"];
+  "aws_subnet.public_subnet" [label="aws_subnet.public_subnet"];
+  "aws_vpc.vpc01" [label="aws_vpc.vpc01"];
+  "aws_eip_association.windows_eip_assoc" -> "aws_eip.windows_eip";
+  "aws_eip_association.windows_eip_assoc" -> "aws_instance.My_Windows_server";
+  "aws_instance.My_Windows_server" -> "aws_security_group.Windows_SG";
+  "aws_instance.My_Windows_server" -> "aws_subnet.public_subnet";
+  "aws_internet_gateway.IGW" -> "aws_vpc.vpc01";
+  "aws_route_table.Public_rt" -> "aws_internet_gateway.IGW";
+  "aws_route_table_association.public_rta" -> "aws_route_table.Public_rt";
+  "aws_route_table_association.public_rta" -> "aws_subnet.public_subnet";
+  "aws_security_group.Linux_SG" -> "aws_vpc.vpc01";
+  "aws_security_group.Windows_SG" -> "aws_vpc.vpc01";
+  "aws_subnet.private_subnet" -> "aws_vpc.vpc01";
+  "aws_subnet.public_subnet" -> "aws_vpc.vpc01";
+}
